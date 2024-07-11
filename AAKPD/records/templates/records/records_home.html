@@ -1,0 +1,17 @@
+{% extends 'main/layout.html' %}
+{% block title %}Записи{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>{{ title }}</h1>
+
+      {% for record in records %}
+            <div class="alert alert-warning">
+                <h3>{{ record.title }}</h3>
+                <p>{{ record.anons }}</p>
+            </div>
+      {% endfor %}
+
+        
+    </div>
+{% endblock %}

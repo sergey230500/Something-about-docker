@@ -1,0 +1,16 @@
+{% extends 'main/layout.html' %}
+{% block title %}Про нас{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>{{ title }}</h1>
+        <p>ыдщаовлпвоавлвжыджавопласлажв врплаола выавоыдлы ыаовылы арвпрвалыж ыдвоылршлвалыдлв ывлрымыавлмовыдлв ырыаыдв</p>
+        <button class="btn btn-warning">На главную</button>
+
+        {% for a in values %}
+            <p>{{ a }}</p>
+        {% endfor %}
+
+        
+    </div>
+{% endblock %}

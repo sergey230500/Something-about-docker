@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сайт с записями с фото</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <!-- Шапка сайта -->
+  </header>
+
+  <main>
+    <section id="add-record">
+      <!-- Форма добавления записи -->
+      <h2>Добавить запись</h2>
+      <form id="record-form">
+        <input type="text" id="record-title" placeholder="Название записи">
+        <textarea id="record-description" placeholder="Описание записи"></textarea>
+        <input type="file" id="record-image" accept="image/*">
+        <button type="submit">Сохранить запись</button>
+      </form>
+    </section>
+
+    <section id="records">
+      <!-- Контейнер для карточек с записями -->
+      <h2>Записи</h2>
+      <div class="records-container">
+        <!-- Карточка с записью 1 -->
+        <div class="record-card">
+          <img src="image1.jpg" alt="Фото записи">
+          <h3>Название записи 1</h3>
+          <p>Описание записи 1</p>
+          <button class="view-record">Подробнее</button>
+        </div>
+
+        <!-- Карточка с записью 2 -->
+        <div class="record-card">
+          <img src="image2.jpg" alt="Фото записи">
+          <h3>Название записи 2</h3>
+          <p>Описание записи 2</p>
+          <button class="view-record">Подробнее</button>
+        </div>
+
+        <!-- ... Добавьте больше карточек -->
+      </div>
+    </section>
+
+    <section id="record-details">
+      <!-- Контейнер для подробной информации о записи -->
+      <div class="record-details-content">
+        <img src="" alt="Фото записи">
+        <h2 id="record-title-details"></h2>
+        <p id="record-description-details"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <!-- Подвал сайта -->
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
