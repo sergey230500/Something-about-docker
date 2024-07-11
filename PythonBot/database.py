@@ -26,7 +26,7 @@ def databaseinsert(fio, description, photo):
     data_tuple = (fio, description, photo)
     cursor.execute(sqlite_insert, data_tuple)
     cursor.execute('COMMIT')
-    cursor.execute("""SELECT * from violations""")
+    cursor.execute("""SELECT * from records_violations""")
     result = cursor.fetchone()
     try:
         print (result[2])
