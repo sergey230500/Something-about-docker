@@ -1,9 +1,9 @@
-FROM python:3
-
-COPY  requirements.txt .
-RUN pip install --no-catche-dir -r requirements.txt
-COPY . .
+FROM python:3.10-slim
+RUN mkdir /site
+COPY . /site/
 
 
-WORKDIR /aakpd
+WORKDIR /site
+RUN pip install django
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 

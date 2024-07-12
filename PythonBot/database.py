@@ -1,10 +1,12 @@
 import sqlite3
 import io 
-
+from datetime import datetime
     
 
 def databaseinsert(fio, description, photo):
-    connection = sqlite3.connect(r'db.sqlite3')
+    connection = sqlite3.connect('/pythonbot/database/db.sqlite3')
+
+
     cursor = connection.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS records_violations (
@@ -20,12 +22,15 @@ def databaseinsert(fio, description, photo):
     connection.close()
 
 
-    connection = sqlite3.connect(r'db.sqlite3')
+    connection = sqlite3.connect('/pythonbot/database/db.sqlite3')
     cursor = connection.cursor()
-    sqlite_insert = """INSERT INTO records_violations (fio, description, photo) VALUES (?, ?, ?)"""
-    data_tuple = (fio, description, photo)
+    print('Подключение успешно')
+    date = datetime.now().isoformat()
+    sqlite_insert = """INSERT INTO records_violations (date, fio, description, photo) VALUES (?, ?, ?, ?)"""
+    data_tuple = (date, fio, description, photo)
     cursor.execute(sqlite_insert, data_tuple)
     cursor.execute('COMMIT')
+    print('Запись внесена')
     cursor.execute("""SELECT * from records_violations""")
     result = cursor.fetchone()
     try:
@@ -37,7 +42,7 @@ def databaseinsert(fio, description, photo):
 
 def read_BLOB(surname):
     
-    connection = sqlite3.connect(r'db.sqlite3')
+    connection = sqlite3.connect('/pythonbot/database/db.sqlite3')
     cursor = connection.cursor()
     fetch_blob = """SELECT * from records_violations WHERE fio=?"""
     find = '%'+ surname + '%'

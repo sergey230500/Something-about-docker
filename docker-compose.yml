@@ -4,17 +4,18 @@ services:
   django:
     build: ./AAKPD
     container_name: django
-    command: python manage.py runserver 0.0.0.0:8000
     ports: 
       - "8000:8000"
-    depends_on:
-      - db
+    volumes:
+      - ./AAKPD/database:/site/database
+
 
   
-  db:
-    image: sqlite
+
     
   pythonbot:
     build: ./PythonBot
-    depends_on:
-      - db
+    depends_on: 
+      - django
+    volumes:
+      - ./AAKPD/database:/pythonbot/database
