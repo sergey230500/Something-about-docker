@@ -8,6 +8,7 @@ services:
       - "8000:8000"
     volumes:
       - ./AAKPD/database:/site/database
+    
 
 
   
@@ -19,3 +20,4 @@ services:
       - django
     volumes:
       - ./AAKPD/database:/pythonbot/database
+    restart: "always"
