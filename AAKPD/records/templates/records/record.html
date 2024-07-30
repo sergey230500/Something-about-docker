@@ -1,0 +1,18 @@
+{% extends 'main/layout.html' %}
+{% block title %}Запись{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>{{ title }}</h1>
+
+      {% for el in record %}
+            <div class="alert alert-warning">
+                <h3>{{ el.fio }}</h3>
+                <p>{{ el.description}}</p>
+                <p>{{ el.date }}</p>
+            </div>
+      {% endfor %}
+
+        
+    </div>
+{% endblock %}
