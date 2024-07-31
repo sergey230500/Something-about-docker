@@ -1,5 +1,8 @@
+
+
+
 {% extends 'main/layout.html' %}
-{% block title %}Запись{% endblock %}
+{% block title %}Записи{% endblock %}
 
 {% block content %}
     <div class="features">
@@ -10,7 +13,7 @@
                 <h3>{{ el.fio }}</h3>
                 <p>{{ el.description}}</p>
                 <p>{{ el.date }}</p>
-                <p>{{ el.photo }}</p>
+                <img src="{% url 'image' 1 %}" alt="Image from database">
             </div>
       {% endfor %}
 

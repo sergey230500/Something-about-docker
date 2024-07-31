@@ -3,12 +3,20 @@ from telebot import types
 import database
 import io
 from io import BytesIO
+from PIL import Image
 fio = ""
 description = ""
 photo = ""
 
-def convert_image_to_blob(image_data: bytes) -> bytes:
-    return BytesIO(image_data).getvalue()
+def convert_image_to_blob(image_path, format='JPEG'):
+    image = Image.open(BytesIO(image_path))
+    blob = BytesIO()
+    image.save(blob, format)
+    return blob.getvalue()
+
+def blob_to_image(blob):
+    image = Image.open(BytesIO(blob))
+    return image
 
 bot = telebot.TeleBot('7126907810:AAG9BbmtMrRDuz77dPSWb93m8q-BntW0yD8')
 
@@ -42,16 +50,13 @@ def get_photo(message):
     global description
     global fio
     if message.content_type == 'photo':
-        file_info = bot.get_file(message.photo[len(message.photo) -1].file_id)
+        file_info = bot.get_file(message.photo[-1].file_id)
         downloaded_file = bot.download_file(file_info.file_path)
-        src = './photos/' + file_info.file_path.replace('photos/', '')
-        with open(src, 'wb') as new_file:
-            new_file.write(downloaded_file)
-            new_file.close()
         global photo
         photo = convert_image_to_blob(downloaded_file)
-        database.databaseinsert(fio, description, photo)
-        bot.send_photo(message.from_user.id, downloaded_file, caption="Нарушитель: " + fio +"\nСуть нарушения: " + description)
+        # database.databaseinsert(fio, description, photo)
+        trytosent = blob_to_image(photo)
+        bot.send_photo(message.from_user.id, trytosent, caption="Нарушитель: " + fio +"\nСуть нарушения: " + description)
         bot.send_message(message.from_user.id, "Запись внесена в базу данных. Чтобы посмотреть записи нарушений, необходимо пройти по ссылке: http://192.168.10.11:8001")
     else:
         bot.send_message(message.from_user.id, "Это не фото")
