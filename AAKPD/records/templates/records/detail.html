@@ -2,7 +2,7 @@
 
 
 {% extends 'main/layout.html' %}
-{% block title %}Записи{% endblock %}
+{% block title %}Запись{% endblock %}
 
 {% block content %}
     <div class="features">
@@ -13,7 +13,9 @@
                 <h3>{{ el.fio }}</h3>
                 <p>{{ el.description}}</p>
                 <p>{{ el.date }}</p>
-                <img src="{% url 'image' 1 %}" alt="Image from database">
+                {%if record.photo %}
+                    <img src="{% url 'records:photo' record.pk %}" alt="Нет Фото">
+                {% endif %}
             </div>
       {% endfor %}
 

@@ -54,7 +54,7 @@ def get_photo(message):
         downloaded_file = bot.download_file(file_info.file_path)
         global photo
         photo = convert_image_to_blob(downloaded_file)
-        # database.databaseinsert(fio, description, photo)
+        database.databaseinsert(fio, description, photo)
         trytosent = blob_to_image(photo)
         bot.send_photo(message.from_user.id, trytosent, caption="Нарушитель: " + fio +"\nСуть нарушения: " + description)
         bot.send_message(message.from_user.id, "Запись внесена в базу данных. Чтобы посмотреть записи нарушений, необходимо пройти по ссылке: http://192.168.10.11:8001")

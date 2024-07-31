@@ -5,5 +5,6 @@ COPY . /site/
 
 WORKDIR /site
 RUN pip install django
+RUN pip install pillow
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 

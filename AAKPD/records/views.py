@@ -1,27 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
+from django.views.generic.detail import DetailView
 from .models import violations
-import base64
+from PIL import Image
+from io import BytesIO
 
-class ImageView(View):
-    def get(self, request, image_id):
-        try:
-            image = violations.objects.get(pk=1)
-            
-            # Получаем изображение в виде base64-строки
-            image_data = image.get_image_as_base64()
-            # Отправляем изображение в браузер
-            response = HttpResponse(image_data, content_type='image/jpeg')
-            return response
-        except violations.DoesNotExist:
-            return HttpResponse('Image not found', status=404)
+
+class RecordDetailView(DetailView):
+    model = violations
+    template_name = 'records/detail.html'
+
+def get_image(request, pk):
+    record = violations.objects.get(pk=pk)
+    blob = record.photo
+    image = Image.open(BytesIO(blob))
+    image_bytes = BytesIO()
+    image.save(image_bytes, 'JPEG')
+    image_data = image_bytes.getvalue()
+
+    response = HttpResponse(image_data, content_type = 'image/jpeg')
+    return response
 
 def records_home(request):
     records = violations.objects.order_by('-id')
     return render(request, 'records/records_home.html', {'records': records})
 
-def record(request):
-    record = violations.objects.order_by('-id')[:1]
-    
-    return render(request, 'records/record.html', {'record': record})
+
