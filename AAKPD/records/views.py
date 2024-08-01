@@ -7,9 +7,14 @@ from PIL import Image
 from io import BytesIO
 
 
-class RecordDetailView(DetailView):
-    model = violations
-    template_name = 'records/detail.html'
+def RecordDetailView(request, pk):
+    records = violations.objects.get(pk = pk)
+    blob = records.photo
+    image = Image.open(BytesIO(blob))
+    image_bytes = BytesIO()
+    image.save(image_bytes, 'JPEG')
+    image = image_bytes.getvalue()
+    return render(request, 'records/detail.html', {'records': records, 'image': image})
 
 def get_image(request, pk):
     record = violations.objects.get(pk=pk)

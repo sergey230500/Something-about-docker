@@ -6,7 +6,7 @@
         <h1>{{ title }}</h1>
 
       {% for record in records %}
-            <a href="{%url 'record' %}"><div class="alert alert-warning">
+            <a href="{% url 'detail' record.pk %}"><div class="alert alert-warning">
                 <h3>{{ record.fio }}</h3>
                 <p>{{ record.description}}</p>
                 <p>{{ record.date }}</p>
