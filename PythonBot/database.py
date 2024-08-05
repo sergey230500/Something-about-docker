@@ -40,6 +40,13 @@ def databaseinsert(fio, description, photo):
     cursor.close()
 
 
+def getnames():
+    connection = sqlite3.connect('/pythonbot/database/db.sqlite3')
+    cursor = connection.cursor()
+    cursor.execute("""SELECT fio from recrds_violations""")
+    record = cursor.fetchall()
+    return record
+
 def read_BLOB(surname):
     
     connection = sqlite3.connect('/pythonbot/database/db.sqlite3')
@@ -47,6 +54,6 @@ def read_BLOB(surname):
     fetch_blob = """SELECT * from records_violations WHERE fio=?"""
     find = '%'+ surname + '%'
     cursor.execute(fetch_blob,find,)
-    record = cursor.fetchone()
+    record = cursor.fetchall()
     connection.close
     return record
